@@ -1,29 +1,32 @@
 package me.friwi.tello4j.api.video;
 
+import org.bytedeco.javacv.Java2DFrameConverter;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static me.friwi.tello4j.wifi.model.TelloSDKValues.VIDEO_HEIGHT;
 import static me.friwi.tello4j.wifi.model.TelloSDKValues.VIDEO_WIDTH;
 
-public class VideoPanel extends JPanel {
-    BufferedImage image;
+public class VideoPanel extends JPanel implements VideoListener {
+    private TelloVideoFrame frame;
+    private Java2DFrameConverter converter = null;
 
     public VideoPanel() {
-        this.setPreferredSize(new Dimension(VIDEO_WIDTH, VIDEO_HEIGHT));
-        this.setSize(new Dimension(VIDEO_WIDTH, VIDEO_HEIGHT));
-        this.setMinimumSize(new Dimension(VIDEO_WIDTH, VIDEO_HEIGHT));
-        this.setMaximumSize(new Dimension(VIDEO_WIDTH, VIDEO_HEIGHT));
+        Dimension size = new Dimension(VIDEO_WIDTH, VIDEO_HEIGHT);
+        this.setPreferredSize(size);
+        this.setSize(size);
+        this.setMinimumSize(size);
+        this.setMaximumSize(size);
         this.setBackground(Color.BLACK);
     }
 
-    public BufferedImage getImage() {
-        return image;
+    public TelloVideoFrame getFrame() {
+        return frame;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
+    public void setFrame(TelloVideoFrame frame) {
+        this.frame = frame;
         this.repaint();
     }
 
@@ -31,7 +34,18 @@ public class VideoPanel extends JPanel {
     public void paint(Graphics gr) {
         if (gr instanceof Graphics2D) {
             Graphics2D g = (Graphics2D) gr;
-            if (getImage() != null) g.drawImage(getImage(), 0, 0, null);
+            if (getFrame() != null) {
+                if (getFrame().getExportType() == TelloVideoExportType.JAVACV_FRAME) {
+                    if (converter == null) converter = new Java2DFrameConverter();
+                    this.frame = new TelloVideoFrame(converter.convert(getFrame().getJavaCVFrame()), getFrame().getJavaCVFrame());
+                }
+                g.drawImage(getFrame().getImage(), 0, 0, null);
+            }
         }
+    }
+
+    @Override
+    public void onFrameReceived(TelloVideoFrame frame) {
+        setFrame(frame);
     }
 }

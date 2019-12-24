@@ -65,7 +65,19 @@ public class TelloVideoThread extends Thread {
                 try {
                     f = fg.grabImage();
                     if (f != null) {
-                        TelloVideoFrame frame = new TelloVideoFrame(conv.convert(f));
+                        TelloVideoFrame frame;
+                        switch (connection.getDrone().getVideoExportType()) {
+                            case BUFFERED_IMAGE:
+                                frame = new TelloVideoFrame(conv.convert(f));
+                                break;
+                            case JAVACV_FRAME:
+                                frame = new TelloVideoFrame(f.clone());
+                                break;
+                            case BOTH:
+                            default:
+                                Frame cloned = f.clone();
+                                frame = new TelloVideoFrame(conv.convert(cloned), cloned);
+                        }
                         queue.queueFrame(frame);
                     }
                 } catch (FrameGrabber.Exception e) {

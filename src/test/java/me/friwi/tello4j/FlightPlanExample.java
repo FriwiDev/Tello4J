@@ -19,7 +19,7 @@ public class FlightPlanExample {
             //Create a video window to see things with our drones eyes
             drone.addVideoListener(new VideoWindow());
             //...or use a custom video listener to process the single frames
-            drone.addVideoListener(frame->{
+            drone.addVideoListener(frame -> {
                 //Do sth when we received a frame
             });
             //...and tell the drone to turn on the stream
@@ -35,7 +35,7 @@ public class FlightPlanExample {
             drone.forward(30);
             drone.land();
             //Prevent our drone from being closed
-            while(true);
+            while (true) ;
         }
     }
 }

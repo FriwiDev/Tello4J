@@ -3,6 +3,7 @@ package me.friwi.tello4j.api.drone;
 import me.friwi.tello4j.api.exception.TelloException;
 import me.friwi.tello4j.api.state.StateListener;
 import me.friwi.tello4j.api.state.TelloDroneState;
+import me.friwi.tello4j.api.video.TelloVideoExportType;
 import me.friwi.tello4j.api.video.VideoListener;
 import me.friwi.tello4j.api.world.FlipDirection;
 import me.friwi.tello4j.api.world.MovementDirection;
@@ -15,6 +16,7 @@ public abstract class TelloDrone implements AutoCloseable {
     private List<VideoListener> videoListeners = new ArrayList<>();
     private List<StateListener> stateListeners = new ArrayList<>();
     private TelloDroneState cachedState;
+    private TelloVideoExportType videoExportType = TelloVideoExportType.BUFFERED_IMAGE;
 
     @Override
     public void close() {
@@ -136,5 +138,13 @@ public abstract class TelloDrone implements AutoCloseable {
 
     public void setCachedState(TelloDroneState cachedState) {
         this.cachedState = cachedState;
+    }
+
+    public TelloVideoExportType getVideoExportType() {
+        return videoExportType;
+    }
+
+    public void setVideoExportType(TelloVideoExportType videoExportType) {
+        this.videoExportType = videoExportType;
     }
 }

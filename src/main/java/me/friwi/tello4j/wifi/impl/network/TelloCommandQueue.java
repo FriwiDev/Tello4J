@@ -35,7 +35,7 @@ public class TelloCommandQueue extends Thread {
                             System.err.println("Dropping reply \"" + data + "\" as it might be binary");
                         }
                         attempt++;
-                        if(invalid && attempt >= TelloSDKValues.COMMAND_SOCKET_BINARY_ATTEMPTS){
+                        if (invalid && attempt >= TelloSDKValues.COMMAND_SOCKET_BINARY_ATTEMPTS) {
                             throw new TelloNetworkException("Too many binary messages received after sending command. Broken connection?");
                         }
                     } while (invalid);

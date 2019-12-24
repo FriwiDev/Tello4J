@@ -134,11 +134,13 @@ public class CustomFFmpegFrameGrabber extends FrameGrabber {
     public CustomFFmpegFrameGrabber(File file) {
         this(file.getAbsolutePath());
     }
+
     public CustomFFmpegFrameGrabber(String filename) {
         this.filename = filename;
         this.pixelFormat = AV_PIX_FMT_NONE;
         this.sampleFormat = AV_SAMPLE_FMT_NONE;
     }
+
     /**
      * Calls {@code FFmpegFrameGrabber(inputStream, Integer.MAX_VALUE - 8)}
      * so that the whole input stream is seekable.
@@ -146,6 +148,7 @@ public class CustomFFmpegFrameGrabber extends FrameGrabber {
     public CustomFFmpegFrameGrabber(InputStream inputStream) {
         this(inputStream, Integer.MAX_VALUE - 8);
     }
+
     public CustomFFmpegFrameGrabber(InputStream inputStream, int maximumSize) {
         this.inputStream = inputStream;
         this.closeInputStream = true;
