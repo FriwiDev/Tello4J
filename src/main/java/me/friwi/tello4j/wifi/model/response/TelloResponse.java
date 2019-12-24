@@ -1,6 +1,7 @@
 package me.friwi.tello4j.wifi.model.response;
 
 import me.friwi.tello4j.api.exception.TelloCommandException;
+import me.friwi.tello4j.api.exception.TelloNoValidIMUException;
 import me.friwi.tello4j.wifi.impl.response.CommandResultType;
 import me.friwi.tello4j.wifi.model.command.TelloCommand;
 
@@ -28,6 +29,7 @@ public class TelloResponse {
     }
 
     public TelloCommandException generateException() {
+        if(this.getMessage().equalsIgnoreCase("error No valid imu"))return new TelloNoValidIMUException();
         return new TelloCommandException("Error while executing command \"" + getCommand().serializeCommand() + "\": " + this.getMessage());
     }
 }

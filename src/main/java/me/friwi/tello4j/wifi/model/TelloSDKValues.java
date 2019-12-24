@@ -23,4 +23,6 @@ public class TelloSDKValues {
     public static final int VIDEO_HEIGHT = 720;
 
     public static final Pattern COMMAND_REPLY_PATTERN = Pattern.compile("[\\w\\. ;:\"]+");
+
+    public static final String NO_VALID_IMU_MSG = "Your tello drone can not obtain valid internal measurement unit parameters. This can occur when the ground under your drone does not provide enough textual features.";
 }

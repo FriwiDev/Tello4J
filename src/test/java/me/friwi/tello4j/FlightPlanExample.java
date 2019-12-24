@@ -4,6 +4,7 @@ import me.friwi.tello4j.api.drone.DroneFactory;
 import me.friwi.tello4j.api.drone.DroneType;
 import me.friwi.tello4j.api.drone.TelloDrone;
 import me.friwi.tello4j.api.exception.TelloException;
+import me.friwi.tello4j.api.video.TelloVideoExportType;
 import me.friwi.tello4j.api.video.VideoWindow;
 import me.friwi.tello4j.api.world.FlipDirection;
 
@@ -18,6 +19,7 @@ public class FlightPlanExample {
             });
             //Create a video window to see things with our drones eyes
             drone.addVideoListener(new VideoWindow());
+            drone.setVideoExportType(TelloVideoExportType.JAVACV_FRAME);
             //...or use a custom video listener to process the single frames
             drone.addVideoListener(frame -> {
                 //Do sth when we received a frame
@@ -32,7 +34,7 @@ public class FlightPlanExample {
             drone.backward(30);
             drone.flip(FlipDirection.FORWARD);
             drone.turnRight(90);
-            drone.forward(30);
+            drone.backward(30);
             drone.land();
             //Prevent our drone from being closed
             while (true) ;
