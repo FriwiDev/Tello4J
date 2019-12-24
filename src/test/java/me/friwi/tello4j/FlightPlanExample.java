@@ -19,11 +19,15 @@ public class FlightPlanExample {
             });
             //Create a video window to see things with our drones eyes
             drone.addVideoListener(new VideoWindow());
-            drone.setVideoExportType(TelloVideoExportType.JAVACV_FRAME);
             //...or use a custom video listener to process the single frames
             drone.addVideoListener(frame -> {
                 //Do sth when we received a frame
             });
+            //...[optional] select which type of frame you want to receive
+            // a) [default] BUFFERED_IMAGE: Receive buffered images in each TelloVideoFrame
+            // b) JAVACV_FRAME: Receive javacv frames in each TelloVideoFrame to further process them
+            // c) BOTH: Receive both frame types in each TelloVideoFrame
+            drone.setVideoExportType(TelloVideoExportType.BUFFERED_IMAGE);
             //...and tell the drone to turn on the stream
             drone.setStreaming(true);
             //Now perform a flight plan
