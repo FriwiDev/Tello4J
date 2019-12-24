@@ -1,6 +1,7 @@
 package me.friwi.tello4j.wifi.impl.network;
 
 import me.friwi.tello4j.api.exception.TelloException;
+import me.friwi.tello4j.api.exception.TelloNetworkException;
 import me.friwi.tello4j.wifi.model.TelloSDKValues;
 import me.friwi.tello4j.wifi.model.command.TelloCommand;
 import me.friwi.tello4j.wifi.model.response.TelloResponse;
@@ -24,6 +25,7 @@ public class TelloCommandQueue extends Thread {
                 try {
                     this.connection.send(cmd.serializeCommand());
                     String data = this.connection.readString().trim();
+                    int attempt = 0;
                     boolean invalid = false;
                     do {
                         invalid = false;
@@ -31,6 +33,10 @@ public class TelloCommandQueue extends Thread {
                         if (!TelloSDKValues.COMMAND_REPLY_PATTERN.matcher(data).matches()) invalid = true;
                         if (invalid && TelloSDKValues.DEBUG) {
                             System.err.println("Dropping reply \"" + data + "\" as it might be binary");
+                        }
+                        attempt++;
+                        if(invalid && attempt >= TelloSDKValues.COMMAND_SOCKET_BINARY_ATTEMPTS){
+                            throw new TelloNetworkException("Too many binary messages received after sending command. Broken connection?");
                         }
                     } while (invalid);
                     TelloResponse response = cmd.buildResponse(data);

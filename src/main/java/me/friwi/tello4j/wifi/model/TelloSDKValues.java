@@ -13,6 +13,7 @@ public class TelloSDKValues {
     public static final int COMMAND_SOCKET_TIMEOUT = 20000;
     public static final int STATE_SOCKET_TIMEOUT = 1000;
     public static final int VIDEO_SOCKET_TIMEOUT = 1000;
+    public static final int COMMAND_SOCKET_BINARY_ATTEMPTS = 5;
 
     public static final int STREAM_DEFAULT_PACKET_SIZE = 1460;
 
