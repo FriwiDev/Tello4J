@@ -43,7 +43,7 @@ public class FlightPlanExample {
             drone.land();
             //Prevent our drone from being closed
             //(the drone is automatically closed when leaving the try-with-resource block)
-            //while (true) ;
+            while (true);
         }catch(TelloNoValidIMUException e){
             //Commands that move the drone, apart from "takeoff", "land"
             //and "remote control" can fail due to no valid imu data.

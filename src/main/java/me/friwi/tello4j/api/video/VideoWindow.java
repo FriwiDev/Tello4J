@@ -23,6 +23,7 @@ public class VideoWindow extends JFrame implements VideoListener {
         this.setBackground(Color.BLACK);
         this.panel = new VideoPanel();
         this.add(this.panel);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
 
