@@ -4,6 +4,7 @@ import me.friwi.tello4j.api.drone.DroneFactory;
 import me.friwi.tello4j.api.drone.DroneType;
 import me.friwi.tello4j.api.drone.TelloDrone;
 import me.friwi.tello4j.api.exception.TelloException;
+import me.friwi.tello4j.api.exception.TelloNoValidIMUException;
 import me.friwi.tello4j.api.video.TelloVideoExportType;
 import me.friwi.tello4j.api.video.VideoWindow;
 import me.friwi.tello4j.api.world.FlipDirection;
@@ -41,7 +42,14 @@ public class FlightPlanExample {
             drone.backward(30);
             drone.land();
             //Prevent our drone from being closed
+            //(the drone is automatically closed when leaving the try-with-resource block)
             while (true) ;
+        }catch(TelloNoValidIMUException e){
+            //Commands that move the drone, apart from "takeoff", "land"
+            //and "remote control" can fail due to no valid imu data.
+            //This mainly happens when the ground under the drone does not
+            //provide enough textual features for the drone to navigate properly.
+            e.printStackTrace();
         }
     }
 }
