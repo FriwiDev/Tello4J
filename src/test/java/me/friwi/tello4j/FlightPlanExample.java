@@ -10,7 +10,7 @@ import me.friwi.tello4j.api.video.VideoWindow;
 import me.friwi.tello4j.api.world.FlipDirection;
 
 public class FlightPlanExample {
-    public static void main(String args[]) throws TelloException {
+    public static void main(String args[]) {
         //Initialize a wifi drone
         try (TelloDrone drone = new DroneFactory(DroneType.WIFI).build()) {
             drone.connect();
@@ -43,12 +43,15 @@ public class FlightPlanExample {
             drone.land();
             //Prevent our drone from being closed
             //(the drone is automatically closed when leaving the try-with-resource block)
-            while (true) ;
+            //while (true) ;
         }catch(TelloNoValidIMUException e){
             //Commands that move the drone, apart from "takeoff", "land"
             //and "remote control" can fail due to no valid imu data.
             //This mainly happens when the ground under the drone does not
             //provide enough textual features for the drone to navigate properly.
+            e.printStackTrace();
+        }catch(TelloException e){
+            //Some other error occurred
             e.printStackTrace();
         }
     }

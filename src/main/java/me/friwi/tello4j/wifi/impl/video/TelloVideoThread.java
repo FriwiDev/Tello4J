@@ -34,6 +34,7 @@ public class TelloVideoThread extends Thread {
 
     private boolean streamAligned = false;
     private byte[] buf = new byte[2048];
+    private Thread frameGrabberThread;
 
     public TelloVideoThread(TelloCommandConnection connection) throws TelloNetworkException {
         this.connection = connection;
@@ -43,7 +44,7 @@ public class TelloVideoThread extends Thread {
         } catch (IOException e) {
             throw new TelloNetworkException("Error on constructing video stream", e);
         }
-        new Thread(() -> {
+        frameGrabberThread = new Thread(() -> {
             if (TelloSDKValues.DEBUG) avutil.av_log_set_level(avutil.AV_LOG_ERROR);
             else avutil.av_log_set_level(avutil.AV_LOG_FATAL);
             Java2DFrameConverter conv = new Java2DFrameConverter();
@@ -85,7 +86,16 @@ public class TelloVideoThread extends Thread {
                     return;
                 }
             }
-        }).start();
+            try {
+                fg.stop();
+                fg.release();
+                fg.close();
+            } catch (FrameGrabber.Exception e) {
+                e.printStackTrace();
+            }
+        });
+        frameGrabberThread.setName("Frame-Grab");
+        frameGrabberThread.start();
     }
 
     public void connect() throws TelloNetworkException {
@@ -129,6 +139,7 @@ public class TelloVideoThread extends Thread {
         running = false;
         queue.kill();
         ds.close();
+        this.frameGrabberThread.stop();
     }
 
     protected TelloCommandConnection getConnection() {
