@@ -1,7 +1,6 @@
 package me.friwi.tello4j;
 
 import me.friwi.tello4j.api.drone.DroneFactory;
-import me.friwi.tello4j.api.drone.DroneType;
 import me.friwi.tello4j.api.drone.TelloDrone;
 import me.friwi.tello4j.api.exception.TelloException;
 import me.friwi.tello4j.api.exception.TelloNoValidIMUException;
@@ -12,7 +11,7 @@ import me.friwi.tello4j.api.world.FlipDirection;
 public class FlightPlanExample {
     public static void main(String args[]) {
         //Initialize a wifi drone
-        try (TelloDrone drone = new DroneFactory(DroneType.WIFI).build()) {
+        try (TelloDrone drone = new DroneFactory().build()) {
             drone.connect();
             //Subscribe to state updates of our drone (e.g. current speed, attitude)
             drone.addStateListener((o, n) -> {
