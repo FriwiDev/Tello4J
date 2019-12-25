@@ -1,6 +1,6 @@
 package me.friwi.tello4j.wifi.impl.response;
 
-import me.friwi.tello4j.api.exception.TelloCommandException;
+import me.friwi.tello4j.api.exception.TelloNetworkException;
 import me.friwi.tello4j.wifi.model.command.TelloCommand;
 import me.friwi.tello4j.wifi.model.response.TelloResponse;
 
@@ -10,7 +10,7 @@ public class TelloReadCommandResponse extends TelloResponse {
             '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'
     };
 
-    public TelloReadCommandResponse(TelloCommand command, String message) throws TelloCommandException {
+    public TelloReadCommandResponse(TelloCommand command, String message) throws TelloNetworkException {
         super(command, null, message);
         try {
             String[] arguments = message.trim().split(";");
@@ -30,7 +30,7 @@ public class TelloReadCommandResponse extends TelloResponse {
             }
         } catch (Exception e) {
             this.commandResultType = CommandResultType.ERROR;
-            throw new TelloCommandException("Error while parsing input \"" + message + "\"");
+            throw new TelloNetworkException("Error while parsing input \"" + message + "\"", e);
         }
         this.commandResultType = CommandResultType.OK;
     }

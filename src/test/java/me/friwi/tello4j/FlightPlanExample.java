@@ -2,8 +2,7 @@ package me.friwi.tello4j;
 
 import me.friwi.tello4j.api.drone.DroneFactory;
 import me.friwi.tello4j.api.drone.TelloDrone;
-import me.friwi.tello4j.api.exception.TelloException;
-import me.friwi.tello4j.api.exception.TelloNoValidIMUException;
+import me.friwi.tello4j.api.exception.*;
 import me.friwi.tello4j.api.video.TelloVideoExportType;
 import me.friwi.tello4j.api.video.VideoWindow;
 import me.friwi.tello4j.api.world.FlipDirection;
@@ -43,14 +42,27 @@ public class FlightPlanExample {
             //Prevent our drone from being closed
             //(the drone is automatically closed when leaving the try-with-resource block)
             while (true);
-        }catch(TelloNoValidIMUException e){
+        } catch (TelloNetworkException e) {
+            //Errors that occurred on the network side (e.g. parsing errors, connect error)
+            //can be observed here
+            e.printStackTrace();
+        } catch(TelloNoValidIMUException e){
             //Commands that move the drone, apart from "takeoff", "land"
             //and "remote control" can fail due to no valid imu data.
             //This mainly happens when the ground under the drone does not
             //provide enough textual features for the drone to navigate properly.
             e.printStackTrace();
-        }catch(TelloException e){
-            //Some other error occurred
+        } catch (TelloGeneralCommandException e) {
+            //This exception is thrown when the drone reported an unspecified error
+            //to the api. This can happen when the battery is too low for a
+            //command to be executed
+            e.printStackTrace();
+        } catch (TelloCustomCommandException e) {
+            //This exception is thrown when the drone reported an error with description
+            //to the api. The reason can be obtained with e.getReason()
+            e.printStackTrace();
+        } catch (TelloCommandTimedOutException e) {
+            //This exception is thrown when a command is not answered by the drone for 20 seconds
             e.printStackTrace();
         }
     }

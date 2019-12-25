@@ -1,7 +1,6 @@
 package me.friwi.tello4j.wifi.model.command;
 
-import me.friwi.tello4j.api.exception.TelloCommandException;
-import me.friwi.tello4j.api.exception.TelloException;
+import me.friwi.tello4j.api.exception.*;
 import me.friwi.tello4j.wifi.model.response.TelloResponse;
 
 public abstract class TelloCommand {
@@ -10,7 +9,7 @@ public abstract class TelloCommand {
 
     public abstract String serializeCommand();
 
-    public abstract TelloResponse buildResponse(String data) throws TelloCommandException;
+    public abstract TelloResponse buildResponse(String data) throws TelloGeneralCommandException, TelloNoValidIMUException, TelloCustomCommandException, TelloNetworkException;
 
     public TelloResponse getResponse() {
         return response;

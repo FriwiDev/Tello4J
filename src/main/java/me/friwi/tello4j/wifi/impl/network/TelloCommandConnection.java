@@ -1,7 +1,6 @@
 package me.friwi.tello4j.wifi.impl.network;
 
-import me.friwi.tello4j.api.exception.TelloException;
-import me.friwi.tello4j.api.exception.TelloNetworkException;
+import me.friwi.tello4j.api.exception.*;
 import me.friwi.tello4j.wifi.impl.WifiDrone;
 import me.friwi.tello4j.wifi.impl.state.TelloStateThread;
 import me.friwi.tello4j.wifi.impl.video.TelloVideoThread;
@@ -14,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class TelloCommandConnection {
@@ -59,7 +59,7 @@ public class TelloCommandConnection {
         ds.close();
     }
 
-    public TelloResponse sendCommand(TelloCommand cmd) throws TelloException {
+    public TelloResponse sendCommand(TelloCommand cmd) throws TelloNetworkException, TelloCommandTimedOutException, TelloGeneralCommandException, TelloNoValidIMUException, TelloCustomCommandException {
         synchronized (cmd) {
             queue.queueCommand(cmd);
             try {
@@ -69,7 +69,17 @@ public class TelloCommandConnection {
             }
         }
         if (cmd.getException() != null) {
-            throw new TelloException("Error while performing command", cmd.getException());
+            if(cmd.getException() instanceof TelloNetworkException){
+                throw (TelloNetworkException) cmd.getException();
+            }else if(cmd.getException() instanceof TelloCommandTimedOutException){
+                throw (TelloCommandTimedOutException) cmd.getException();
+            }else if(cmd.getException() instanceof TelloGeneralCommandException){
+                throw (TelloGeneralCommandException) cmd.getException();
+            }else if(cmd.getException() instanceof TelloNoValidIMUException){
+                throw (TelloNoValidIMUException) cmd.getException();
+            }else if(cmd.getException() instanceof TelloCustomCommandException){
+                throw (TelloCustomCommandException) cmd.getException();
+            }
         }
         if (cmd.getResponse() == null) {
             throw new TelloNetworkException("\"" + cmd.serializeCommand() + "\" command was not answered!");
@@ -80,7 +90,6 @@ public class TelloCommandConnection {
     protected void send(String str) throws TelloNetworkException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
-
         if (TelloSDKValues.DEBUG) System.out.println("[OUT] " + str);
 
         try {
@@ -101,20 +110,22 @@ public class TelloCommandConnection {
         }
     }
 
-    protected byte[] readBytes() throws TelloNetworkException {
+    protected byte[] readBytes() throws TelloNetworkException, TelloCommandTimedOutException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         byte[] data = new byte[256];
         DatagramPacket packet = new DatagramPacket(data, data.length);
         try {
             ds.receive(packet);
-        } catch (IOException e) {
+        } catch(SocketTimeoutException e){
+            throw new TelloCommandTimedOutException();
+        } catch(IOException e) {
             throw new TelloNetworkException("Error while reading from command channel", e);
         }
         return Arrays.copyOf(data, packet.getLength());
     }
 
-    protected String readString() throws TelloNetworkException {
+    protected String readString() throws TelloNetworkException, TelloCommandTimedOutException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         byte[] data = readBytes();

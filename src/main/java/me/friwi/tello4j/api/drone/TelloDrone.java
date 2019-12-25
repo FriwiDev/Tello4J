@@ -1,6 +1,6 @@
 package me.friwi.tello4j.api.drone;
 
-import me.friwi.tello4j.api.exception.TelloException;
+import me.friwi.tello4j.api.exception.*;
 import me.friwi.tello4j.api.state.StateListener;
 import me.friwi.tello4j.api.state.TelloDroneState;
 import me.friwi.tello4j.api.video.TelloVideoExportType;
@@ -23,88 +23,88 @@ public abstract class TelloDrone implements AutoCloseable {
         this.disconnect();
     }
 
-    public abstract void connect() throws TelloException;
+    public abstract void connect() throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
     public abstract void disconnect();
 
     public abstract boolean isConnected();
 
-    public abstract void takeoff() throws TelloException;
+    public abstract void takeoff() throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract void land() throws TelloException;
+    public abstract void land() throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
     public abstract boolean isStreaming();
 
-    public abstract void setStreaming(boolean stream) throws TelloException;
+    public abstract void setStreaming(boolean stream) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract void emergency() throws TelloException;
+    public abstract void emergency() throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract void moveDirection(MovementDirection direction, int cm) throws TelloException;
+    public abstract void moveDirection(MovementDirection direction, int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract void turn(TurnDirection direction, int degrees) throws TelloException;
+    public abstract void turn(TurnDirection direction, int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract void flip(FlipDirection direction) throws TelloException;
+    public abstract void flip(FlipDirection direction) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract void move(int x, int y, int z, int speed) throws TelloException;
+    public abstract void move(int x, int y, int z, int speed) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract void curve(int x1, int y1, int z1, int x2, int y2, int z2, int speed) throws TelloException;
+    public abstract void curve(int x1, int y1, int z1, int x2, int y2, int z2, int speed) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract void setSpeed(int speed) throws TelloException;
+    public abstract void setSpeed(int speed) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract void sendRemoteControlInputs(int lr, int fb, int ud, int yaw) throws TelloException;
+    public abstract void sendRemoteControlInputs(int lr, int fb, int ud, int yaw) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract void setWifiSSIDAndPassword(String ssid, String password) throws TelloException;
+    public abstract void setWifiSSIDAndPassword(String ssid, String password) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
 
-    public abstract double fetchSpeed() throws TelloException;
+    public abstract double fetchSpeed() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchBattery() throws TelloException;
+    public abstract int fetchBattery() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchMotorTime() throws TelloException;
+    public abstract int fetchMotorTime() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchHeight() throws TelloException;
+    public abstract int fetchHeight() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchTemperature() throws TelloException;
+    public abstract int fetchTemperature() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int[] fetchAttitude() throws TelloException;
+    public abstract int[] fetchAttitude() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract double fetchBarometer() throws TelloException;
+    public abstract double fetchBarometer() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract double[] fetchAcceleration() throws TelloException;
+    public abstract double[] fetchAcceleration() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchTOFDistance() throws TelloException;
+    public abstract int fetchTOFDistance() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
-    public abstract int fetchWifiSnr() throws TelloException;
+    public abstract int fetchWifiSnr() throws TelloCommandTimedOutException, TelloNetworkException, TelloCustomCommandException, TelloGeneralCommandException;
 
 
-    public void up(int cm) throws TelloException {
+    public void up(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.UP, cm);
     }
 
-    public void down(int cm) throws TelloException {
+    public void down(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.DOWN, cm);
     }
 
-    public void left(int cm) throws TelloException {
+    public void left(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.LEFT, cm);
     }
 
-    public void right(int cm) throws TelloException {
+    public void right(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.RIGHT, cm);
     }
 
-    public void forward(int cm) throws TelloException {
+    public void forward(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.FORWARD, cm);
     }
 
-    public void backward(int cm) throws TelloException {
+    public void backward(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.moveDirection(MovementDirection.BACKWARD, cm);
     }
 
-    public void turnLeft(int degrees) throws TelloException {
+    public void turnLeft(int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.turn(TurnDirection.LEFT, degrees);
     }
 
-    public void turnRight(int degrees) throws TelloException {
+    public void turnRight(int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
         this.turn(TurnDirection.RIGHT, degrees);
     }
 

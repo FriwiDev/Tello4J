@@ -25,4 +25,6 @@ public class TelloSDKValues {
     public static final Pattern COMMAND_REPLY_PATTERN = Pattern.compile("[\\w\\. ;:\"]+");
 
     public static final String NO_VALID_IMU_MSG = "Your tello drone could not obtain valid internal measurement unit parameters. This can occur when the ground under your drone does not provide enough textual features.";
+    public static final String COMMAND_TIMED_OUT = "Your tello drone did not answer a command for "+COMMAND_SOCKET_TIMEOUT/1000+" seconds. Is it still powered on/reachable?";
+    public static final String GENERAL_ERROR = "Your tello drone could not execute the command. Perhaps the battery is too low for the command to be performed?";
 }
