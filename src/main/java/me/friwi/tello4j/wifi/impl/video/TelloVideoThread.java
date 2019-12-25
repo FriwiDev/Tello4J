@@ -39,7 +39,6 @@ public class TelloVideoThread extends Thread {
             throw new TelloNetworkException("Error on constructing video stream", e);
         }
         frameGrabberThread = new TelloFrameGrabberThread(this);
-        frameGrabberThread.start();
     }
 
     public void connect() throws TelloNetworkException {
@@ -53,6 +52,7 @@ public class TelloVideoThread extends Thread {
 
     public void run() {
         queue.start();
+        frameGrabberThread.start();
         setName("Stream-Thread");
         while (running) {
             try {
