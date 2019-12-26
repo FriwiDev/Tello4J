@@ -1,7 +1,7 @@
 package me.friwi.tello4j;
 
-import me.friwi.tello4j.api.drone.DroneFactory;
 import me.friwi.tello4j.api.drone.TelloDrone;
+import me.friwi.tello4j.api.drone.WifiDroneFactory;
 import me.friwi.tello4j.api.exception.*;
 import me.friwi.tello4j.api.video.TelloVideoExportType;
 import me.friwi.tello4j.api.video.VideoWindow;
@@ -10,7 +10,7 @@ import me.friwi.tello4j.api.world.FlipDirection;
 public class FlightPlanExample {
     public static void main(String args[]) {
         //Initialize a wifi drone
-        try (TelloDrone drone = new DroneFactory().build()) {
+        try (TelloDrone drone = new WifiDroneFactory().build()) {
             drone.connect();
             //Subscribe to state updates of our drone (e.g. current speed, attitude)
             drone.addStateListener((o, n) -> {
@@ -41,12 +41,12 @@ public class FlightPlanExample {
             drone.land();
             //Prevent our drone from being closed
             //(the drone is automatically closed when leaving the try-with-resource block)
-            while (true);
+            while (true) ;
         } catch (TelloNetworkException e) {
             //Errors that occurred on the network side (e.g. parsing errors, connect error)
             //can be observed here
             e.printStackTrace();
-        } catch(TelloNoValidIMUException e){
+        } catch (TelloNoValidIMUException e) {
             //Commands that move the drone, apart from "takeoff", "land"
             //and "remote control" can fail due to no valid imu data.
             //This mainly happens when the ground under the drone does not

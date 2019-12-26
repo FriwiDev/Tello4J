@@ -24,8 +24,8 @@ public abstract class ReadCommand extends TelloCommand {
     public TelloResponse buildResponse(String data) throws TelloNetworkException, TelloGeneralCommandException, TelloNoValidIMUException, TelloCustomCommandException {
         TelloReadCommandResponse response = new TelloReadCommandResponse(this, data);
         if (response.getCommandResultType() == CommandResultType.ERROR) {
-            if(response.getMessage().equalsIgnoreCase("error"))throw new TelloGeneralCommandException();
-            if(response.getMessage().equalsIgnoreCase("error No valid imu"))throw new TelloNoValidIMUException();
+            if (response.getMessage().equalsIgnoreCase("error")) throw new TelloGeneralCommandException();
+            if (response.getMessage().equalsIgnoreCase("error No valid imu")) throw new TelloNoValidIMUException();
             throw new TelloCustomCommandException("Error while executing command \"" + serializeCommand() + "\": " + response.getMessage(), response.getMessage());
         }
         return response;

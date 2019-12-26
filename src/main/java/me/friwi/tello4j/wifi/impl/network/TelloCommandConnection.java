@@ -17,14 +17,14 @@ import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class TelloCommandConnection {
-    protected DatagramSocket ds;
-    protected InetAddress remoteAddress;
-    protected boolean connectionState = false;
-    protected TelloCommandQueue queue;
-    protected TelloStateThread stateThread;
-    protected TelloVideoThread videoThread;
+    DatagramSocket ds;
+    InetAddress remoteAddress;
+    boolean connectionState = false;
+    TelloCommandQueue queue;
+    TelloStateThread stateThread;
+    TelloVideoThread videoThread;
 
-    protected WifiDrone drone;
+    WifiDrone drone;
 
     public TelloCommandConnection(WifiDrone drone) {
         this.drone = drone;
@@ -69,15 +69,15 @@ public class TelloCommandConnection {
             }
         }
         if (cmd.getException() != null) {
-            if(cmd.getException() instanceof TelloNetworkException){
+            if (cmd.getException() instanceof TelloNetworkException) {
                 throw (TelloNetworkException) cmd.getException();
-            }else if(cmd.getException() instanceof TelloCommandTimedOutException){
+            } else if (cmd.getException() instanceof TelloCommandTimedOutException) {
                 throw (TelloCommandTimedOutException) cmd.getException();
-            }else if(cmd.getException() instanceof TelloGeneralCommandException){
+            } else if (cmd.getException() instanceof TelloGeneralCommandException) {
                 throw (TelloGeneralCommandException) cmd.getException();
-            }else if(cmd.getException() instanceof TelloNoValidIMUException){
+            } else if (cmd.getException() instanceof TelloNoValidIMUException) {
                 throw (TelloNoValidIMUException) cmd.getException();
-            }else if(cmd.getException() instanceof TelloCustomCommandException){
+            } else if (cmd.getException() instanceof TelloCustomCommandException) {
                 throw (TelloCustomCommandException) cmd.getException();
             }
         }
@@ -87,7 +87,7 @@ public class TelloCommandConnection {
         return cmd.getResponse();
     }
 
-    protected void send(String str) throws TelloNetworkException {
+    void send(String str) throws TelloNetworkException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         if (TelloSDKValues.DEBUG) System.out.println("[OUT] " + str);
@@ -99,7 +99,7 @@ public class TelloCommandConnection {
         }
     }
 
-    protected void send(byte[] bytes) throws TelloNetworkException {
+    private void send(byte[] bytes) throws TelloNetworkException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length, remoteAddress, TelloSDKValues.COMMAND_PORT);
@@ -110,22 +110,22 @@ public class TelloCommandConnection {
         }
     }
 
-    protected byte[] readBytes() throws TelloNetworkException, TelloCommandTimedOutException {
+    private byte[] readBytes() throws TelloNetworkException, TelloCommandTimedOutException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         byte[] data = new byte[256];
         DatagramPacket packet = new DatagramPacket(data, data.length);
         try {
             ds.receive(packet);
-        } catch(SocketTimeoutException e){
+        } catch (SocketTimeoutException e) {
             throw new TelloCommandTimedOutException();
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new TelloNetworkException("Error while reading from command channel", e);
         }
         return Arrays.copyOf(data, packet.getLength());
     }
 
-    protected String readString() throws TelloNetworkException, TelloCommandTimedOutException {
+    String readString() throws TelloNetworkException, TelloCommandTimedOutException {
         if (!connectionState)
             throw new TelloNetworkException("Can not send/receive data when the connection is closed!");
         byte[] data = readBytes();

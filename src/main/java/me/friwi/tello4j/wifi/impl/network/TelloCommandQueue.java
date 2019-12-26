@@ -13,7 +13,7 @@ public class TelloCommandQueue extends Thread {
     private boolean running = true;
     private TelloCommandConnection connection;
 
-    public TelloCommandQueue(TelloCommandConnection connection) {
+    TelloCommandQueue(TelloCommandConnection connection) {
         this.connection = connection;
     }
 
@@ -26,10 +26,9 @@ public class TelloCommandQueue extends Thread {
                     this.connection.send(cmd.serializeCommand());
                     String data = this.connection.readString().trim();
                     int attempt = 0;
-                    boolean invalid = false;
+                    boolean invalid;
                     do {
-                        invalid = false;
-                        if (data.startsWith("conn_ack")) invalid = true;
+                        invalid = data.startsWith("conn_ack");
                         if (!TelloSDKValues.COMMAND_REPLY_PATTERN.matcher(data).matches()) invalid = true;
                         if (invalid && TelloSDKValues.DEBUG) {
                             System.err.println("Dropping reply \"" + data + "\" as it might be binary");
@@ -38,7 +37,7 @@ public class TelloCommandQueue extends Thread {
                         if (invalid && attempt >= TelloSDKValues.COMMAND_SOCKET_BINARY_ATTEMPTS) {
                             throw new TelloNetworkException("Too many binary messages received after sending command. Broken connection?");
                         }
-                        if(invalid){
+                        if (invalid) {
                             data = this.connection.readString().trim();
                         }
                     } while (invalid);
@@ -63,12 +62,12 @@ public class TelloCommandQueue extends Thread {
         }
     }
 
-    public synchronized void queueCommand(TelloCommand cmd) {
+    synchronized void queueCommand(TelloCommand cmd) {
         queue.add(cmd);
         this.notifyAll();
     }
 
-    public synchronized void kill() {
+    synchronized void kill() {
         running = false;
         this.notifyAll();
     }

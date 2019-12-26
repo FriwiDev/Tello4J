@@ -76,7 +76,7 @@ public class WifiDrone extends TelloDrone {
             } else if (!stream && streaming) {
                 this.commandConnection.sendCommand(new StreamOffCommand());
             }
-        }catch(TelloNoValidIMUException e){
+        } catch (TelloNoValidIMUException e) {
             //Will (hopefully) never happen
             e.printStackTrace();
         }

@@ -14,12 +14,12 @@ import static me.friwi.tello4j.wifi.model.TelloSDKValues.VIDEO_WIDTH;
 public class TelloFrameGrabberThread extends Thread {
     private TelloVideoThread videoThread;
 
-    public TelloFrameGrabberThread(TelloVideoThread videoThread) {
+    TelloFrameGrabberThread(TelloVideoThread videoThread) {
         setName("Frame-Grabber");
         this.videoThread = videoThread;
     }
 
-    public void run(){
+    public void run() {
         if (TelloSDKValues.DEBUG) avutil.av_log_set_level(avutil.AV_LOG_ERROR);
         else avutil.av_log_set_level(avutil.AV_LOG_FATAL);
         Java2DFrameConverter conv = new Java2DFrameConverter();

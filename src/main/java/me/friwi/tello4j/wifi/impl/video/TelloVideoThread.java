@@ -17,14 +17,13 @@ import java.util.List;
 import static me.friwi.tello4j.wifi.model.TelloSDKValues.STREAM_DEFAULT_PACKET_SIZE;
 
 public class TelloVideoThread extends Thread {
-    protected boolean running = true;
+    boolean running = true;
+    TelloVideoQueue queue;
+    PipedInputStream pis = new PipedInputStream();
     private TelloCommandConnection connection;
     private DatagramSocket ds;
-    protected TelloVideoQueue queue;
-
     private List<byte[]> currentFrame = new LinkedList<>();
-    protected PipedInputStream pis = new PipedInputStream();
-    private PipedOutputStream pos = null;
+    private PipedOutputStream pos;
 
     private boolean streamAligned = false;
     private byte[] buf = new byte[2048];
@@ -90,7 +89,7 @@ public class TelloVideoThread extends Thread {
         ds.close();
     }
 
-    protected TelloCommandConnection getConnection() {
+    TelloCommandConnection getConnection() {
         return connection;
     }
 }
