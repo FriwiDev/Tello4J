@@ -26,12 +26,18 @@ public class TelloCommandConnection {
 
     WifiDrone drone;
 
+    private long lastCommand = -1;
+    private boolean onceConnected = false;
+
     public TelloCommandConnection(WifiDrone drone) {
         this.drone = drone;
     }
 
     public void connect() throws TelloNetworkException {
+        if(onceConnected)throw new TelloNetworkException("You can not reconnect by using connect(). Please build a new tello drone object.");
         try {
+            onceConnected = true;
+            lastCommand = System.currentTimeMillis();
             queue = new TelloCommandQueue(this);
             stateThread = new TelloStateThread(this);
             videoThread = new TelloVideoThread(this);
@@ -60,6 +66,10 @@ public class TelloCommandConnection {
     }
 
     public TelloResponse sendCommand(TelloCommand cmd) throws TelloNetworkException, TelloCommandTimedOutException, TelloGeneralCommandException, TelloNoValidIMUException, TelloCustomCommandException {
+        if(lastCommand+TelloSDKValues.COMMAND_TIMEOUT<System.currentTimeMillis()){
+            throw new TelloConnectionTimedOutException();
+        }
+        lastCommand = System.currentTimeMillis();
         synchronized (cmd) {
             queue.queueCommand(cmd);
             try {
@@ -139,7 +149,7 @@ public class TelloCommandConnection {
     }
 
     public boolean isConnected() {
-        return connectionState;
+        return connectionState && (lastCommand+TelloSDKValues.COMMAND_TIMEOUT) > System.currentTimeMillis();
     }
 
     public WifiDrone getDrone() {

@@ -43,9 +43,15 @@ public class FlightPlanExample {
             //(the drone is automatically closed when leaving the try-with-resource block)
             while (true) ;
         } catch (TelloNetworkException e) {
-            //Errors that occurred on the network side (e.g. parsing errors, connect error)
-            //can be observed here
-            e.printStackTrace();
+            if(e instanceof TelloConnectionTimedOutException){
+                //The connection timed out because we did not send commands within the last 15 seconds.
+                //The drone safely lands then.
+                e.printStackTrace();
+            }else {
+                //Errors that occurred on the network side (e.g. parsing errors, connect error)
+                //can be observed here
+                e.printStackTrace();
+            }
         } catch (TelloNoValidIMUException e) {
             //Commands that move the drone, apart from "takeoff", "land"
             //and "remote control" can fail due to no valid imu data.

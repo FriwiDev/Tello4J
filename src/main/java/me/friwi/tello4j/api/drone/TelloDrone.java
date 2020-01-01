@@ -33,11 +33,13 @@ public abstract class TelloDrone implements AutoCloseable {
     }
 
     /**
-     * Estabilishes a connection with the tello drone.
+     * Estabilishes a connection with the tello drone. Can only be used once, please construct a new tello drone object
+     * when reconnecting.
      * You still need to connect to the tello wifi manually before invoking this call.
      *
      * @throws TelloNetworkException         If communication with the tello drone produced invalid input or
-     *                                       the wifi network was set up incorrectly.
+     *                                       the wifi network was set up incorrectly. Also thrown if you called
+     *                                       {@link #connect()} twice.
      * @throws TelloCommandTimedOutException If the tello drone did not answer in time.
      * @throws TelloCustomCommandException   If the tello drone answered with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
@@ -52,8 +54,8 @@ public abstract class TelloDrone implements AutoCloseable {
 
     /**
      * Retrieves the connection state of this drone.
-     * When the drone times out after not sending commands for 15 seconds, the drone automatically lands safely,
-     * but this method will still return true.
+     * When the drone times out after not sending commands for 15 seconds, the drone automatically lands safely and
+     * closes the connection.
      *
      * @return true: if drone was already connected, false: otherwise
      */
