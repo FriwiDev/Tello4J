@@ -1,5 +1,10 @@
 package me.friwi.tello4j.api.world;
 
+/**
+ * This enum represents all possible directions the drone can move to
+ *
+ * @author Fritz Windisch
+ */
 public enum MovementDirection {
     UP("up"),
     DOWN("down"),

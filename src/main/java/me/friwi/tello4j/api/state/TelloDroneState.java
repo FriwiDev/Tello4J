@@ -1,5 +1,10 @@
 package me.friwi.tello4j.api.state;
 
+/**
+ * This class represents one full state of the tello drone
+ *
+ * @author Fritz Windisch
+ */
 public class TelloDroneState {
     private int pitch, roll, yaw, speedX, speedY, speedZ, tempLow, tempHigh, tofDistance, height, battery, motorTime;
     private double barometer, accelerationX, accelerationY, accelerationZ;

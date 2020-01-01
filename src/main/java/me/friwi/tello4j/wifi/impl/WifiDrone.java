@@ -131,8 +131,13 @@ public class WifiDrone extends TelloDrone {
         }
     }
 
-    public void setWifiSSIDAndPassword(String ssid, String password) throws TelloCommandTimedOutException, TelloCustomCommandException, TelloNetworkException, TelloNoValidIMUException, TelloGeneralCommandException {
-        this.commandConnection.sendCommand(new SetWifiPasswordAndSSIDCommand(ssid, password));
+    public void setWifiSSIDAndPassword(String ssid, String password) throws TelloCommandTimedOutException, TelloCustomCommandException, TelloNetworkException, TelloGeneralCommandException {
+        try {
+            this.commandConnection.sendCommand(new SetWifiPasswordAndSSIDCommand(ssid, password));
+        } catch (TelloNoValidIMUException e) {
+            //Will (hopefully) never happen
+            e.printStackTrace();
+        }
     }
 
     private Object[] fetch(ReadCommand cmd) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException {

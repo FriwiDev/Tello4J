@@ -6,6 +6,11 @@ import java.awt.*;
 import static me.friwi.tello4j.wifi.model.TelloSDKValues.VIDEO_HEIGHT;
 import static me.friwi.tello4j.wifi.model.TelloSDKValues.VIDEO_WIDTH;
 
+/**
+ * A simple {@link VideoListener} in the form of a {@link JFrame}, that draws all received images to itself.
+ *
+ * @author Fritz Windisch
+ */
 public class VideoWindow extends JFrame implements VideoListener {
     private VideoPanel panel;
 
