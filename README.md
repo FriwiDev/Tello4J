@@ -12,6 +12,7 @@ Include the library in your project by adding it as a maven dependency:
     <version>1.0</version>
 </dependency>
 ```
+...or download the .jar [here](https://search.maven.org/artifact/me.friwi/tello4j/1.0/jar) (You will need to include JavaCV 1.5.2 in your project for the library to work). 
 
 Use the API to send instructions to your drone, receive state updates and video frames from the camera of your drone:
 ```java
