@@ -141,7 +141,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public abstract void moveDirection(MovementDirection direction, int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
@@ -156,7 +156,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public abstract void turn(TurnDirection direction, int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
@@ -170,7 +170,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error (possibly battery too low).
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public abstract void flip(FlipDirection direction) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
@@ -187,7 +187,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public abstract void move(int x, int y, int z, int speed) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
@@ -207,7 +207,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public abstract void curve(int x1, int y1, int z1, int x2, int y2, int z2, int speed) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException;
@@ -382,7 +382,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void up(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -398,7 +398,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void down(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -414,7 +414,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void left(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -430,7 +430,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void right(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -446,7 +446,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void forward(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -462,7 +462,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void backward(int cm) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -478,7 +478,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void turnLeft(int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
@@ -494,7 +494,7 @@ public abstract class TelloDrone implements AutoCloseable {
      * @throws TelloCustomCommandException   If the drone responds with a custom error message.
      *                                       Use {@link TelloCustomCommandException#getReason()} to fetch the custom error message.
      * @throws TelloGeneralCommandException  If the drone responds with an unspecified error.
-     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does.
+     * @throws TelloNoValidIMUException      If the IMU is not correctly calibrated or the ground beneath the drone does
      *                                       not provide enough textual features.
      */
     public void turnRight(int degrees) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloNoValidIMUException, TelloGeneralCommandException {
