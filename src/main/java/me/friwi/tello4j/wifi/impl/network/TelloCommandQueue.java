@@ -18,6 +18,7 @@ package me.friwi.tello4j.wifi.impl.network;
 
 import me.friwi.tello4j.api.exception.TelloException;
 import me.friwi.tello4j.api.exception.TelloNetworkException;
+import me.friwi.tello4j.wifi.impl.command.set.RemoteControlCommand;
 import me.friwi.tello4j.wifi.model.TelloSDKValues;
 import me.friwi.tello4j.wifi.model.command.TelloCommand;
 import me.friwi.tello4j.wifi.model.response.TelloResponse;
@@ -40,7 +41,8 @@ public class TelloCommandQueue extends Thread {
             if (cmd != null) {
                 try {
                     this.connection.send(cmd.serializeCommand());
-                    String data = this.connection.readString().trim();
+                    //Read response, or assume ok with the remote control command
+                    String data = cmd instanceof RemoteControlCommand ? "ok" : this.connection.readString().trim();
                     int attempt = 0;
                     boolean invalid;
                     do {
