@@ -86,4 +86,4 @@ public class FlightPlanExample {
 
 ## Documentation
 
-Visit the javadoc [here](https://friwi.me/tello4j/javadoc/1_0_2/).
+Visit the javadoc [here](https://friwi.me/tello4j/javadoc/).
