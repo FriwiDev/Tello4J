@@ -28,6 +28,7 @@ import me.friwi.tello4j.wifi.impl.command.set.SetSpeedCommand;
 import me.friwi.tello4j.wifi.impl.command.set.SetWifiPasswordAndSSIDCommand;
 import me.friwi.tello4j.wifi.impl.network.TelloCommandConnection;
 import me.friwi.tello4j.wifi.impl.response.TelloReadCommandResponse;
+import me.friwi.tello4j.wifi.model.TelloSDKValues;
 import me.friwi.tello4j.wifi.model.command.ReadCommand;
 import me.friwi.tello4j.wifi.model.response.TelloResponse;
 
@@ -42,7 +43,12 @@ public class WifiDrone extends TelloDrone {
 
     @Override
     public void connect() throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException {
-        this.commandConnection.connect();
+        this.connect(TelloSDKValues.DRONE_IP_DST);
+    }
+
+    @Override
+    public void connect(String remoteAddr) throws TelloNetworkException, TelloCommandTimedOutException, TelloCustomCommandException, TelloGeneralCommandException {
+        this.commandConnection.connect(remoteAddr);
         //Enter SDK mode
         try {
             this.commandConnection.sendCommand(new EnterSDKModeCommand());

@@ -49,7 +49,7 @@ public class TelloCommandConnection {
         this.drone = drone;
     }
 
-    public void connect() throws TelloNetworkException {
+    public void connect(String remote) throws TelloNetworkException {
         if(onceConnected)throw new TelloNetworkException("You can not reconnect by using connect(). Please build a new tello drone object.");
         try {
             onceConnected = true;
@@ -57,7 +57,7 @@ public class TelloCommandConnection {
             queue = new TelloCommandQueue(this);
             stateThread = new TelloStateThread(this);
             videoThread = new TelloVideoThread(this);
-            this.remoteAddress = InetAddress.getByName(TelloSDKValues.DRONE_IP_DST);
+            this.remoteAddress = InetAddress.getByName(remote);
             ds = new DatagramSocket(TelloSDKValues.COMMAND_PORT);
             ds.setSoTimeout(TelloSDKValues.COMMAND_SOCKET_TIMEOUT);
             ds.connect(remoteAddress, TelloSDKValues.COMMAND_PORT);
