@@ -6,7 +6,7 @@
 
     <groupId>me.friwi</groupId>
     <artifactId>tello4j</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>Tello4J</name>
     <description>A Java library for communication with your tello drone.
         Supporting SDK commands, state updates and video feed.</description>
